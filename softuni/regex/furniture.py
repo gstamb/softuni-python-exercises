@@ -9,7 +9,7 @@ while True:
         break
 
 
-    pattern = ">>([A-Za-z]+)<<(\d+(?:\.\d+)?)!(\d+)"
+    pattern = ">>([A-Za-z]+)<<([0-9]+(?:\.[0-9]+)?)!(\d+)"
     matches = re.findall(pattern, purchase)
     item_to_buy = ""
     if matches:
