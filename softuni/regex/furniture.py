@@ -8,8 +8,7 @@ while True:
     if purchase == "Purchase":
         break
 
-
-    pattern = ">>([A-Za-z]+)<<([0-9]+(?:\.[0-9]+)?)!(\d+)"
+    pattern = r">>([a-zA-Z_]+)<<([0-9]+(?:\.[0-9]+)?)!([0-9]+)"
     matches = re.findall(pattern, purchase)
     item_to_buy = ""
     if matches:
@@ -18,8 +17,8 @@ while True:
             price = m[1]
             quantity = m[2]
             items.append(item)
-            tot_spend += float(quantity) * float(price)
+            tot_spend += int(quantity) * float(price)
 
-print("Bought furniture:\n{0}".format("\n".join(items)))
+print("Bought furniture:")
+[print(x) for x in items]
 print(f"Total money spend: {tot_spend:.2f}")
-
