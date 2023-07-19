@@ -31,4 +31,3 @@ while True:
         print(starting_string)
 
 print(f"Ready for world tour! Planned stops: {starting_string}")
-

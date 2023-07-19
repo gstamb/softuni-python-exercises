@@ -30,13 +30,9 @@ while True:
         else:
             print("error")
 
-
 print("Plants for the exhibition:")
 for plant, data in plants.items():
     if len(data["Rating"]) > 0:
-        print(f"- {plant}; Rarity: {data['Rarity']}; Rating: {sum(data['Rating'])/len(data['Rating']):.2f}")
+        print(f"- {plant}; Rarity: {data['Rarity']}; Rating: {sum(data['Rating']) / len(data['Rating']):.2f}")
     else:
         print(f"- {plant}; Rarity: {data['Rarity']}; Rating: 0.00")
-
-
-
