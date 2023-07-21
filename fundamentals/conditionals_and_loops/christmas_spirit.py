@@ -42,7 +42,5 @@ for day in range(1, days_2christmas + 1):
         total_cost += ornament_set[0] * (decorations_cnt + extra)
         total_spirit += ornament_set[1]
 
-
-
 print(f"Total cost: {total_cost}")
 print(f"Total spirit: {total_spirit}")
