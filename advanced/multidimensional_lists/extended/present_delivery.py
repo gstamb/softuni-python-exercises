@@ -60,31 +60,29 @@ def move_santa(board, direction, presents):
         elif board[new_x][new_y] == "C":
             board[new_x][new_y] = "S"
             board[current_x][current_y] = "-"
-            deliver_present_nearby(board, presents)
+            deliver_present_nearby(board, presents, possible_moves)
         else:
             board[new_x][new_y] = "S"
             board[current_x][current_y] = "-"
 
 
-def deliver_present_nearby(board, presents):
+def deliver_present_nearby(board, presents, moves):
     """Delivers presents to all nearby kids when Santa gets a cookie.
 
     Args:
         board (list[list[str]]): The matrix representing the neighborhood.
         presents (list[int]): A list to track the number of presents delivered.
+        moves: Coordinates of Santa's moves by direction in addition to current location
 
     Modifies:
         board: Updates the board by removing the delivered presents.
         presents: Appends the number of presents delivered based on Santa's action.
     """
 
-    # refine possible moves for Santa in each direction
-    possible_moves = {"up": (-1, 0), "down": (1, 0), "left": (0, -1), "right": (0, +1)}
-
     current_x, current_y = find_santa_location(board)
 
     # check if the new location is within the boundaries of the board
-    for direction, val in possible_moves.items():
+    for direction, val in moves.items():
         new_x = current_x + val[0]
         new_y = current_y + val[1]
         if 0 <= new_x < len(board) and 0 <= new_y < len(board):
