@@ -15,7 +15,7 @@ class Trainer:
 
     def release_pokemon(self, pokemon_name: str):
         for pokemon in self.pokemons:
-            if pokemon.name == pokemon_name:
+            if pokemon.username == pokemon_name:
                 self.pokemons.remove(pokemon)
                 return f"You have released {pokemon_name}"
         else:

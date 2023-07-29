@@ -9,7 +9,7 @@ class Section:
 
     def add_task(self, new_task: Task):
         for task in self.tasks:
-            if task.name == new_task.name:
+            if task.username == new_task.name:
                 return f"Task is already in the section {self.name}"
         else:
             self.tasks.append(new_task)
@@ -17,7 +17,7 @@ class Section:
 
     def complete_task(self, task_name: str):
         for task in self.tasks:
-            if task.name == task_name:
+            if task.username == task_name:
                 task.completed = True
                 return f"Completed task {task_name}"
         return f"Could not find task with the name {task_name}"

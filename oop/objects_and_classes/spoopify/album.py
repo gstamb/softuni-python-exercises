@@ -8,7 +8,7 @@ class Album:
         self.songs = {}
 
         for arg in args:
-            self.songs[arg.name] = arg
+            self.songs[arg.username] = arg
 
     def add_song(self, song: Song):
         if song.single:
