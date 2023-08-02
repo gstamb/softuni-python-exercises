@@ -1,4 +1,4 @@
-from project.food.desert import Desert
+from project import Desert
 
 
 class Cake(Desert):
