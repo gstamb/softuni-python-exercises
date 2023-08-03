@@ -38,7 +38,11 @@ class Account:
         return self.amount != other.amount
 
     def __add__(self, other):
-        return Account(f"{self.owner}&{other.owner}", self.amount + other.amount)
+        transactions = self._transactions + other._transactions
+        amount = self.amount + other.amount
+        new_account = Account(f"{self.owner}&{other.owner}", amount - sum(transactions))
+        new_account._transactions = transactions
+        return new_account
 
     @property
     def balance(self):

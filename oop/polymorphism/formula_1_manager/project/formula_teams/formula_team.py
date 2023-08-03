@@ -5,7 +5,7 @@ class FormulaTeam(ABC):
     SPONSOR_1 = {}
     SPONSOR_2 = {}
     EXPENSES = 0
-    _budget = 0
+    budget = 0
 
     @abstractmethod
     def __init__(self, budget: int):
@@ -28,6 +28,7 @@ class FormulaTeam(ABC):
         expenses = getattr(self.__class__, "EXPENSES")
         gross_profit = race_revenue - expenses
         self.budget += gross_profit
+        self.__class__.budget += gross_profit
         return f"The revenue after the race is {gross_profit}$. Current budget {self.budget}$"
 
     @classmethod

@@ -3,12 +3,12 @@ from project.formula_teams.red_bull_team import RedBullTeam
 
 
 class F1SeasonApp:
-    red_bull_team = None
-    mercedes_team = None
 
     def __init__(self):
         self.red_bull_team = None
         self.mercedes_team = None
+        self.__class__.red_bull_team = None
+        self.__class__.mercedes_team = None
 
     def register_team_for_season(self, team, budget):
         if team == "Red Bull":
@@ -32,3 +32,4 @@ class F1SeasonApp:
             red_bull_revenue = self.red_bull_team.calculate_revenue_after_race(red_bull_pos)
             ahead = ["Red Bull" if red_bull_revenue > mercedes_revenue else "Mercedes"]
             return f"Red Bull: {red_bull_revenue}. Mercedes: {mercedes_revenue}. {ahead[0]} is ahead at the {race_name} race."
+
