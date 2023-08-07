@@ -1,4 +1,6 @@
 class User:
+    rating_increase_scale = 0.5
+    rating_decrease_scale = 2
 
     def __init__(self, first_name: str, last_name: str, driving_license_number: str):
         self.first_name = first_name
@@ -55,14 +57,14 @@ class User:
             raise ValueError("Users rating cannot be negative!")
 
     def increase_rating(self):
-        if self.rating + 0.5 > 10:
+        if self.rating + self.rating_increase_scale > 10:
             self.rating = 10
         else:
-            self.rating += 0.5
+            self.rating += self.rating_increase_scale
 
     def decrease_rating(self):
-        if self.rating - 2 <= 0:
+        if self.rating - self.rating_decrease_scale < 0:
             self.rating = 0
             self.is_blocked = True
         else:
-            self.rating -= 2
+            self.rating -= self.rating_decrease_scale

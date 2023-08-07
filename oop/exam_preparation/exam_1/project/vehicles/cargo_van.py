@@ -14,5 +14,3 @@ class CargoVan(BaseVehicle):
     def drive(self, mileage: float):
         battery_discharge = round(mileage / self.max_mileage * 100)
         self.battery_level -= (battery_discharge + self.load_battery_penalty)
-
-

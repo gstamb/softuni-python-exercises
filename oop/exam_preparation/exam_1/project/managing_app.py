@@ -12,6 +12,8 @@ def get_vehicle_obj(vehicle_type):
 
 
 class ManagingApp:
+    route_id_generator = (x for x in range(1, 10000))
+
     def __init__(self):
         self.users = []
         self.users_lookup = {}
@@ -42,7 +44,6 @@ class ManagingApp:
         return f"{brand} {model} was successfully uploaded with LPN-{license_plate_number}."
 
     def allow_route(self, start_point: str, end_point: str, length: float):
-        new_route = Route(start_point, end_point, length, len(self.routes) + 1)
         for route in self.routes:
             if route.start_point == start_point and route.end_point == end_point and route.length == length:
                 return f"{start_point}/{end_point} - {length} km had already been added to our platform."
@@ -51,6 +52,7 @@ class ManagingApp:
             elif route.start_point == start_point and route.end_point == end_point and route.length > length:
                 route.is_locked = True
 
+        new_route = Route(start_point, end_point, length, ManagingApp.route_id_generator.__next__())
         self.routes.append(new_route)
         return f"{start_point}/{end_point} - {length} km is unlocked and available to use."
 
@@ -67,9 +69,11 @@ class ManagingApp:
             return f"Vehicle {license_plate_number} is damaged! This trip is not allowed."
         if route_obj.is_locked:
             return f"Route {route_id} is locked! This trip is not allowed."
+
         vehicle.drive(route_obj.length)
+
         if is_accident_happened:
-            vehicle.is_damaged = True
+            vehicle.change_status()
             user.decrease_rating()
         else:
             user.increase_rating()
@@ -77,15 +81,11 @@ class ManagingApp:
         return str(vehicle)
 
     def repair_vehicles(self, count: int):
-
         broken_vehicles = [x for x in self.vehicles if x.is_damaged][:count]
 
-        repaired = 0
         for vehicle in sorted(broken_vehicles, key=lambda x: (x.brand, x.model)):
-            if vehicle.is_damaged:
-                vehicle.change_status()
-                vehicle.recharge()
-                repaired += 1
+            vehicle.change_status()
+            vehicle.recharge()
 
         return f"{len(broken_vehicles)} vehicles were successfully repaired!"
 
@@ -95,3 +95,4 @@ class ManagingApp:
             user_info += f"{str(user)}\n"
 
         return user_info.strip()
+
