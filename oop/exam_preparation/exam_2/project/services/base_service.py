@@ -2,9 +2,13 @@ from abc import ABC, abstractmethod
 
 
 class BaseService(ABC):
+    ERR_MSG_SERVICE_NAME = "Service name cannot be empty!"
+    ERR_MSG_SERVICE_CAPACITY = "Service capacity cannot be less than or equal to 0!"
+    min_robot_capacity = 0
+
     def __init__(self, name: str, capacity: int):
         self.name = name
-        self.capacity = capacity
+        self.__capacity = capacity
         self.robots = []
 
     @property
@@ -16,7 +20,7 @@ class BaseService(ABC):
         if value.strip():
             self.__name = value
         else:
-            raise ValueError("Service name cannot be empty!")
+            raise ValueError(self.ERR_MSG_SERVICE_NAME)
 
     @property
     def capacity(self):
@@ -24,10 +28,10 @@ class BaseService(ABC):
 
     @capacity.setter
     def capacity(self, value):
-        if value > 0:
+        if value > self.min_robot_capacity:
             self.__capacity = value
         else:
-            raise ValueError("Service capacity cannot be less than or equal to 0!")
+            raise ValueError(self.ERR_MSG_SERVICE_CAPACITY)
 
     @abstractmethod
     def details(self):
@@ -47,4 +51,9 @@ class BaseService(ABC):
                 count += 1
         return count
 
+    def get_capacity(self):
+        return self.__capacity
 
+
+if __name__ == "__main__":
+    pass

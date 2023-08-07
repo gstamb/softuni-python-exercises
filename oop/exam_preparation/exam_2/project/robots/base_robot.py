@@ -2,6 +2,10 @@ from abc import ABC, abstractmethod
 
 
 class BaseRobot(ABC):
+    ERR_MSG_ROBOT_NAME = "Robot name cannot be empty!"
+    ERR_MSG_ROBOT_KIND = "Robot kind cannot be empty!"
+    ERR_MSG_ROBOT_PRICE = "Robot price cannot be less than or equal to 0.0!"
+    min_value_price = 0
 
     def __init__(self, name: str, kind: str, price: float, weight: int):
         self.name = name
@@ -18,7 +22,7 @@ class BaseRobot(ABC):
         if value.strip():
             self.__name = value
         else:
-            raise ValueError("Robot name cannot be empty!")
+            raise ValueError(self.ERR_MSG_ROBOT_NAME)
 
     @property
     def kind(self):
@@ -29,7 +33,7 @@ class BaseRobot(ABC):
         if value.strip():
             self.__kind = value
         else:
-            raise ValueError("Robot kind cannot be empty!")
+            raise ValueError(self.ERR_MSG_ROBOT_KIND)
 
     @property
     def price(self):
@@ -37,12 +41,15 @@ class BaseRobot(ABC):
 
     @price.setter
     def price(self, value):
-        if value > 0:
+        if value > self.min_value_price:
             self.__price = value
         else:
-            raise ValueError("Robot price cannot be less than or equal to 0.0!")
+            raise ValueError(self.ERR_MSG_ROBOT_PRICE)
 
     @abstractmethod
     def eating(self):
         pass
 
+
+if __name__ == "__main__":
+    pass
