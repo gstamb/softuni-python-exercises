@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>It works!</title>
+</head>
+<body>
+<h1> Django is great! </h1>
+<h2> My name is {{ name }} </h2>
+{% for person in people %}
+<h2> Person {{ person.name }} Age {{ person.age }} </h2>
+{% endfor %}
+
+</body>
+</html>
