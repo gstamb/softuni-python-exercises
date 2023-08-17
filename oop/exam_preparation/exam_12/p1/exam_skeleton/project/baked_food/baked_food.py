@@ -3,12 +3,16 @@ from abc import ABC, abstractmethod
 
 class BakedFood(ABC):
     MINIMUM_PRICE = 0
-    PORTION_SIZE = None
 
     def __init__(self, name: str, portion: float, price: float):
         self.name = name
         self.portion = portion
         self.price = price
+
+    @property
+    @abstractmethod
+    def PORTION_SIZE(self):
+        pass
 
     @property
     def name(self):
@@ -30,7 +34,6 @@ class BakedFood(ABC):
             raise ValueError("Price cannot be less than or equal to zero!")
         self.__price = value
 
-    @abstractmethod
     def __repr__(self):
         return f" - {self.name}: {self.portion:.2f}g - {self.price:.2f}lv"
 

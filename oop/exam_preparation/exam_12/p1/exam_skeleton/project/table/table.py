@@ -5,7 +5,6 @@ from project.drink.tea import Tea
 
 class Table(ABC):
     MIN_CAPACITY = 0
-    TABLE_TYPE_RANGE = (0, 2000)
 
     def __init__(self, table_number: int, capacity: int):
         self.table_number = table_number
@@ -14,6 +13,11 @@ class Table(ABC):
         self.drink_orders = []
         self.number_of_people = 0
         self.is_reserved = False
+
+    @property
+    @abstractmethod
+    def TABLE_TYPE_RANGE(self):
+        pass
 
     @property
     def capacity(self):
@@ -59,7 +63,6 @@ class Table(ABC):
         self.is_reserved = False
         self.number_of_people = 0
 
-    @abstractmethod
     def free_table_info(self):
         if not self.is_reserved:
             return f"Table: {self.table_number}\nType: {self.__class__.__name__}\nCapacity: {self.capacity}"
