@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>It works!</title>
+</head>
+<body>
+<h1> Django is great! </h1>
+<h2> My name is {{ name }} </h2>
+    {% for person in people %}
+    <h2> Person {{ person.name }} Age {{ person.age }} </h2>
+    {% endfor %}
+<h1> Create a new user </h1>
+<form method="post" action="/cities/create/">
+    {% csrf_token %}
+    <input name="name" />
+    <input name="age" />
+    <button> Create user</button>
+</form>
+</body>
+</html>

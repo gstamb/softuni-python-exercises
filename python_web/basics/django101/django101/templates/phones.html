@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% csrf_token %}
+<h1> {{ phones.message }}</h1>
+{% for phone, value in phones.phones.items %}
+    {% if value.quantity > 0 %}
+    <h1> {{ phone }}</h1>
+    <a href="products/{{ id }} " class="btn cta-buy">
+        Buy
+    </a>
+    {% else %}
+    <h1> {{ phone }}</h1>
+    <a href="products/{{ id }} " class="btn cta-buy">
+        Not avaiable
+    </a>
+    {% endif %}
+{% endfor %}
+</body>
+</html>
