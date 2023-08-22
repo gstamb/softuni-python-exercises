@@ -1,5 +1,5 @@
 """
-URL configuration for urls_and_templates project.
+URL configuration for petstagram project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -16,11 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic.base import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('main_app/', include('main_app.urls')),
-    path('secondary_app/', include('secondary_app.urls')),
-    path('', TemplateView.as_view(template_name='index.html'), name='home'),
+    path('', include('common.urls')),
 ]
