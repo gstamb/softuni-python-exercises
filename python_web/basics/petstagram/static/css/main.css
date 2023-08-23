@@ -22,6 +22,8 @@ section header {
 }
 
 .button {
+    display: inline-block;
+
     padding: 5px 15px;
 
     border-style: none;
@@ -32,6 +34,7 @@ section header {
     border-color: #6c757d;
     font-size: 16px;
 
+
 }
 .button:hover {
     color: #fff;
@@ -39,6 +42,8 @@ section header {
     border-color: #545b62;
     cursor: pointer;
 }
+
+
 
 .site-nav {
     background-color: rgb(248,249,250);
@@ -54,10 +59,8 @@ section header {
 
 .banner {
     height: 500px;
-    width: 1046px;
-
     padding-top: 15px 15px 15px 15px;
-    margin: 0 auto;
+
 
     background-color: #e9ecef;
 }
@@ -72,3 +75,15 @@ section header {
     height:300px;
 }
 
+#root {
+    width: 1046px;
+    margin: 0 auto;
+}
+
+.pet-buttons {
+    padding-top: 10px;
+}
+
+.button.button-blue {
+    background-color: blue;
+}

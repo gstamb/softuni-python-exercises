@@ -1,0 +1,27 @@
+.pet-image,
+.pet-info {
+    padding:15px;
+    display: inline-block;
+}
+
+.pet-image{
+    width: 33%;
+}
+
+.pet-info {
+    width:55%;
+    vertical-align: top;
+}
+
+.list-pet-details  {
+   font-weight: 500;
+}
+
+.list-pet-details .list-item  {
+   width: 25%;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
