@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django101',
     'django101.cities',
     'django101.todos_app',
+    'django101.testing'
 
 ]
 

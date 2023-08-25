@@ -21,4 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('cities/', include('django101.cities.urls')),
     path('todos_app/', include('django101.todos_app.urls')),
+    path('profiles/', include('django101.testing.urls')),
+
 ]
