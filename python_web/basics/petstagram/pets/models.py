@@ -29,3 +29,8 @@ class Pet(models.Model):
 class Like(models.Model):
     like = models.ForeignKey(Pet, on_delete=models.CASCADE)
     comment = models.CharField(max_length=5)
+
+
+class Comment(models.Model):
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
+    text = models.TextField(blank=False)

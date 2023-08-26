@@ -1,9 +1,10 @@
 from django.contrib import admin
 
-from pets.models import Pet, Like
+from pets.models import Pet, Like, Comment
 
 class LikeInlineAdmin(admin.TabularInline):
     model = Like
+    
 class PetAdmin(admin.ModelAdmin):
     list_display = ('type', 'name')
     list_filter = ('type',)
@@ -13,3 +14,5 @@ class PetAdmin(admin.ModelAdmin):
 
 admin.site.register(Pet, PetAdmin)
 admin.site.register(Like)
+admin.site.register(Comment)
+
