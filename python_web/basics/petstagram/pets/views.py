@@ -7,14 +7,14 @@ def list_pets(request):
     context = {
         'pets': Pet.objects.all(),
     }
-    return render(request, 'pets/pets_list.html', context)
+    return render(request, 'pet_list.html', context)
 
 
 def show_pet_details(request, pk):
     context = {
         'pet': Pet.objects.get(pk=pk),
     }
-    return render(request, 'pets/pets_details.html', context)
+    return render(request, 'pet_detail.html', context)
 
 
 def like_pet(request, pk):
