@@ -3,80 +3,64 @@ from fruitpedia.fruit.models import FruitModel
 from fruitpedia.user_profile.forms import UserCreateForm, UserEditForm
 from fruitpedia.user_profile.models import UserProfile
 from django.contrib.auth.hashers import make_password
+from fruitpedia.core.utils import get_profile, get_all_fruits
+
 
 def create_profile(request):
-    user_profile = UserProfile.objects.first()
-    form = UserCreateForm()
-    if request.method == 'GET':
-
-        context = {
-            'user_profile': user_profile,
-            'form': form
-        }
-        return render(request, 'create-profile.html', context)
-    else:
-        form = UserCreateForm(request.POST)
+    user_profile = get_profile()
+    form = UserCreateForm(request.POST or None)
+    if request.method == 'POST':
         if form.is_valid():
-            new_user = UserProfile(**form.cleaned_data)
-            new_user.password = make_password(form.cleaned_data['password'])
-            new_user.save()
-            return redirect('index')
-        else:
-            context = {
-                'user_profile': user_profile,
-                'form': form
-            }
-            return render(request, 'create-profile.html', context)
+            form.save()
+            user = get_profile()
+            user.password = make_password(form.cleaned_data['password'])
+            user.save()
+            return redirect('dashboard')
+
+    context = {
+        'user_profile': user_profile,
+        'form': form
+    }
+    return render(request, 'create-profile.html', context)
 
 
 def profile_details(request):
-    posts = FruitModel.objects.all()
-    user_profile = UserProfile.objects.first()
+    user_profile = get_profile()
+    posts_count = FruitModel.objects.count()
     context = {
         'user_profile': user_profile,
-        'posts': len(posts)
+        'posts_count': posts_count
     }
     return render(request, 'details-profile.html', context)
 
 
-def edit_profile(request, pk):
-    user_profile = UserProfile.objects.first()
-    user_profile_filtered = UserProfile.objects.filter(pk=pk).values(
-        'first_name', 'last_name', 'email', 'image_url')
-    form = UserEditForm(user_profile_filtered[0])
-    form.fields['password'].widget.attrs['hidden'] = True
-    if request.method == 'GET':
-        context = {
-            'user_profile': user_profile,
-            'form': form
-        }
-        return render(request, 'edit-profile.html', context)
-    else:
-        form = UserEditForm(request.POST)
+def edit_profile(request):
+    user_profile = get_profile()
+    form = UserEditForm(instance=user_profile)
+    if request.method == 'POST':
+        form = UserEditForm(request.POST, instance=user_profile)
         if form.is_valid():
-            user_profile.first_name = form.cleaned_data['first_name']
-            user_profile.last_name = form.cleaned_data['last_name']
-            user_profile.email = form.cleaned_data['email']
-            user_profile.image_url = form.cleaned_data['image_url']
-            user_profile.save()
-            return redirect('dashboard')
-        else:
-            context = {
-                'user_profile': user_profile,
-                'form': form
-            }
-            return render(request, 'edit-profile.html', context)
+            form.save()
+            return redirect('details profile')
+
+    context = {
+        'user_profile': user_profile,
+        'form': form,
+    }
+    return render(request, 'edit-profile.html', context)
 
 
 def delete_profile(request, pk):
     user_profile = UserProfile.objects.get(pk=pk)
-    if request.method == 'GET':
-        context = {
-            'user_profile': user_profile
-        }
-        return render(request, 'delete-profile.html', context)
-    else:
+    if request.method == 'POST':
         user_profile.delete()
-        for fruit in FruitModel.objects.all():
+        for fruit in get_all_fruits():
             fruit.delete()
         return redirect('index')
+
+    context = {
+        'user_profile': user_profile
+    }
+    return render(request, 'delete-profile.html', context)
+
+

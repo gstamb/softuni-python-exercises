@@ -1,18 +1,17 @@
 {% extends 'shared/nav.html' %}
 {% block site_content %}
 <!-- Add Fruit Form -->
-        <section id="create">
-            <div class="form">
-                <h2>Add Fruit</h2>
-                <form class="create-form" method="post" action="{% url 'create fruit' %}">
-                    {{ form.name }}
-                    {{ form.image_url }}
-                    {{ form.description }}
-                    {{ form.nutrition }}
-                    {{ form.errors }}
-                    {% csrf_token %}
-                    <button type="submit">Add Fruit</button>
-                </form>
-            </div>
-        </section>
+<section id="create">
+    <div class="form">
+        <h2>Add Fruit</h2>
+        <form class="create-form" method="post" action="{% url 'add fruit' %}">
+            {% for boundfield in form %}
+            {{ boundfield }}
+            {% endfor %}
+            {{ form.errors }}
+            {% csrf_token %}
+            <button type="submit">Add Fruit</button>
+        </form>
+    </div>
+</section>
 {% endblock %}

@@ -1,23 +1,55 @@
 from django.db import models
-from django.core.exceptions import ValidationError
-from django.core.validators import MinLengthValidator, MaxLengthValidator, EmailValidator
-
-def name_start_with_letter(value):
-    if not value[0].isalpha():
-        raise ValidationError("Your name must start with a letter!",
-                              params={'value': value}
-                              )
+from django.core.validators import MinLengthValidator
 
 
 class UserProfile(models.Model):
-    first_name = models.CharField(
-        blank=False, max_length=25)
-    last_name = models.CharField(
-        blank=False, max_length=35)
-    email = models.EmailField(
-        blank=False, max_length=40)
-    password = models.CharField(
-        blank=False, max_length=20)
-    image_url = models.URLField(blank=True)
-    age = models.IntegerField(blank=True, default=18)
+    MAX_LEN_FN = 25
+    MIN_LEN_FN = 2
 
+    MAX_LEN_LN = 35
+    MIN_LEN_LN = 1
+
+    MAX_LEN_EMAIL = 40
+
+    MAX_LEN_PW = 20
+    MIN_LEN_PW = 8
+
+    DEFAULT_AGE = 18
+
+    first_name = models.CharField(
+        blank=False,
+        null=False,
+        max_length=MAX_LEN_FN,
+        validators=(MinLengthValidator(MIN_LEN_FN),)
+    )
+
+    last_name = models.CharField(
+        blank=False,
+        null=False,
+        max_length=MAX_LEN_LN,
+        validators=(MinLengthValidator(MIN_LEN_LN),)
+    )
+
+    email = models.EmailField(
+        blank=False,
+        null=False,
+        max_length=MAX_LEN_EMAIL,
+    )
+
+    password = models.CharField(
+        blank=False,
+        null=False,
+        max_length=MAX_LEN_PW,
+        validators=(MinLengthValidator(MIN_LEN_PW),)
+    )
+
+    image_url = models.URLField(
+        blank=True,
+        null=True
+    )
+
+    age = models.IntegerField(
+        blank=True,
+        null=False,
+        default=DEFAULT_AGE
+    )
