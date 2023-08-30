@@ -1,11 +1,9 @@
 from django.shortcuts import render, redirect
 from plantapp.core.utils import get_profile, get_all_plants
 from plantapp.user_profile.forms import ProfileCreateForm, ProfileEditForm
-from plantapp.user_profile.models import ProfileModel
 
 
 def create_profile(request):
-    profile = get_profile()
     form = ProfileCreateForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
@@ -14,7 +12,6 @@ def create_profile(request):
 
     context = {
         'form': form,
-        'profile': profile
     }
 
     return render(request, 'create-profile.html', context)
@@ -39,7 +36,7 @@ def edit_profile(request):
         form = ProfileEditForm(request.POST, instance=profile)
         if form.is_valid():
             form.save()
-            return redirect('show-profile', profile.id)
+            return redirect('show-profile')
 
     context = {
         'form': form,

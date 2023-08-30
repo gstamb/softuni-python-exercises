@@ -3,23 +3,21 @@ from django import forms
 from plantapp.plant.models import PlantModel
 
 
-class PlantCreateForm(forms.ModelForm):
+class PlantBaseForm(forms.ModelForm):
     class Meta:
         model = PlantModel
         fields = '__all__'
 
 
-class PlantEditForm(forms.ModelForm):
-    class Meta:
-        model = PlantModel
-        fields = '__all__'
+class PlantCreateForm(PlantBaseForm):
+    pass
 
 
-class PlantDeleteForm(forms.ModelForm):
-    class Meta:
-        model = PlantModel
-        fields = '__all__'
+class PlantEditForm(PlantBaseForm):
+    pass
 
+
+class PlantDeleteForm(PlantBaseForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
