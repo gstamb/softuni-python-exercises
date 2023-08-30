@@ -1,0 +1,14 @@
+{% extends 'shared/nav.html' %}
+{% block site_content %}
+<!-- edit plant form -->
+<section id="create-page" class="auth">
+    <form id="create" method="post" action="{% url 'edit-plant' plant.id %}">
+        <div class="container">
+            <h1>Edit Plant</h1>
+            {{ form }}
+            {% csrf_token %}
+            <input class="btn submit" type="submit" value="Edit Plant">
+        </div>
+    </form>
+</section>
+{% endblock %}

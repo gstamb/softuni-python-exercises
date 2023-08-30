@@ -1,0 +1,22 @@
+{% extends 'shared/nav.html' %}
+{% block site_content %}
+<section id="plant-details">
+    <h1>Plant Details</h1>
+    <div class="info-section">
+        <div class="plant-header">
+            <img class="plant-img"
+                 src="{{ plant.image_url }}"
+                 alt='plant image'/>
+            <h1>{{ plant.plant_type }}</h1>
+            <p><span class="description-plant">Name: {{ plant.plant_name }}</span></p>
+            <p><span class="description-plant">Price: {{ plant.price }}</span></p>
+            <p><span class="description-plant">Description: {{ plant.description|truncatechars:250}}</span>
+            </p>
+        </div>
+        <div class="buttons">
+            <a href="{% url 'edit-plant' plant.id %}" class="edit-button">Edit</a>
+            <a href="{% url 'delete-plant' plant.id %}" class="delete-button">Delete</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'shared/nav.html' %}
+{% block site_content %}
+<section id="catalogue">
+    {% if plants %}
+    {% for plant in plants %}
+    <div class="plant-card">
+        <div class="image-wrap">
+            <img src="{{ plant.image_url }}" alt="Indoor Plants">
+        </div>
+        <h3>{{ plant.plant_name }}</h3>
+        <h1>{{ plant.description|truncatechars:20 }}</h1>
+        <div class="details-buttons">
+            <a href="{% url 'show-details' plant.id %}" class="details-btn">Details</a>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p class="no-articles">No plants yet</p>
+    {% endif %}
+</section>
+{% endblock %}
