@@ -54,13 +54,13 @@ def delete_profile(request, pk):
     user_profile = UserProfile.objects.get(pk=pk)
     if request.method == 'POST':
         user_profile.delete()
-        for fruit in get_all_fruits():
-            fruit.delete()
+        fruits = get_all_fruits()
+        if fruits:
+            for fruit in fruits:
+                fruit.delete()
         return redirect('index')
 
     context = {
         'user_profile': user_profile
     }
     return render(request, 'delete-profile.html', context)
-
-
