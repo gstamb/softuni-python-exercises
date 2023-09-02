@@ -2,23 +2,28 @@
 {% block site_content %}
 <!-- Display div "game" with information about every game (if any)-->
 <section id="welcome-world">
-    {% for game in games %}
-    <!-- first game-->
-    <div class="game">
-        <div class="image-wrap">
-            <!-- game image -->
-            <img src="{{ game.image_url }}"
-                alt="UNO">
+    {% if not games %}
+    <!-- Display paragraph: If there are no games-->
+    <p class="no-articles">No games yet</p>
+    {% else %}
+        {% for game in games %}
+        <!-- first game-->
+        <div class="game">
+            <div class="image-wrap">
+                <!-- game image -->
+                <img src="{{ game.image_url }}"
+                    alt="UNO">
+            </div>
+            <!-- game title -->
+            <h3>{{ game.title }}</h3>
+            <!-- game category-->
+            <h1>{{ game.category }}</h1>
+            <div class="data-buttons">
+                <!-- game details button -->
+                <a href="{% url 'details-game' game.id %}" class="btn details-btn">Details</a>
+            </div>
         </div>
-        <!-- game title -->
-        <h3>{{ game.title }}</h3>
-        <!-- game category-->
-        <h1>{{ game.category }}</h1>
-        <div class="data-buttons">
-            <!-- game details button -->
-            <a href="#" class="btn details-btn">Details</a>
-        </div>
-    </div>
-    {% endfor %}
+        {% endfor %}
+    {% endif %}
 </section>
 {% endblock %}

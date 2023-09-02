@@ -89,6 +89,8 @@
 .text {
     font-size: 25px;
     color: #545454;
+    overflow-wrap: break-word;
+    
 }
 
 .movie_social {
@@ -124,3 +126,4 @@
     color: white;
 }
 
+ 

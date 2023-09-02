@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+from games_play_app.play_app.models.profile_model import Profile
+
 
 class Game(models.Model):
     ACTION = "Action"
@@ -50,10 +52,12 @@ class Game(models.Model):
     )
     max_level = models.IntegerField(
         blank=True,
-        validators=[MinValueValidator(LEVEL_MIN_VAL, LEVEL_ERR_MSG),]
+        validators=[MinValueValidator(LEVEL_MIN_VAL, LEVEL_ERR_MSG),],
+        verbose_name='Max Level'
     )
     image_url = models.URLField(
         blank=False,
+        verbose_name='Image URL'
     )
     summary = models.TextField(
         blank=True,

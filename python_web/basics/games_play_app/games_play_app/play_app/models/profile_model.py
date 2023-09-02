@@ -23,12 +23,15 @@ class Profile(models.Model):
     )
     first_name = models.CharField(
         blank=True,
-        max_length=MAX_LEN_NAMES
+        max_length=MAX_LEN_NAMES,
+        verbose_name="First Name"
     )
     last_name = models.CharField(
         blank=True,
-        max_length=MAX_LEN_NAMES
+        max_length=MAX_LEN_NAMES,
+        verbose_name='Last Name'
     )
     image_url = models.URLField(
         blank=True,
+        verbose_name='Profile Picture'
     )
