@@ -42,17 +42,15 @@ class Game(models.Model):
         blank=False,
         max_length=15,
         choices=GAMES_CHOICES
-
     )
     rating = models.FloatField(
         blank=False,
         validators=[MinValueValidator(RATING_MIN_VAL, RATING_ERR_MSG), MaxValueValidator(
             RATING_MAX_VAL, RATING_ERR_MSG)],
-
     )
     max_level = models.IntegerField(
         blank=True,
-        validators=[MinValueValidator(LEVEL_MIN_VAL, LEVEL_ERR_MSG),],
+        validators=[MinValueValidator(LEVEL_MIN_VAL, LEVEL_ERR_MSG), ],
         verbose_name='Max Level'
     )
     image_url = models.URLField(
@@ -61,4 +59,8 @@ class Game(models.Model):
     )
     summary = models.TextField(
         blank=True,
+    )
+    fk = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE
     )

@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 from games_play_app.play_app.models.profile_model import Profile
-from games_play_app.play_app.models.game_model import Game
+from django.db.models import Avg, Count
 
 from django import forms
 
@@ -22,17 +22,19 @@ class ProfileDetailsView(DetailView):
     model = Profile
     template_name = 'details-profile.html'
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(ProfileDetailsView, self).get_context_data(
-            *args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-        all_games = Game.objects.all()
+        profile = self.get_object()
 
-        games_count = len(all_games)
-        rating_sum = sum([x.rating for x in all_games])
-        context['count_games'] = games_count
+        annotated_profile = Profile.objects.annotate(
+            game_count=Count('game'),
+            avg_rating=Avg('game__rating')
+        ).filter(pk=profile.pk).first()
+
+        context['count_games'] = annotated_profile.game_count or 0
         context['avg_rating'] = "{:.1f}".format(
-            0.0 if not games_count else rating_sum / games_count)
+            annotated_profile.avg_rating or 0.0)
 
         return context
 
@@ -41,11 +43,14 @@ class ProfileEditView(UpdateView):
     model = Profile
     fields = '__all__'
     template_name = 'edit-profile.html'
-    success_url = reverse_lazy("homepage")
+
+    def get_success_url(self):
+        profile_id = self.kwargs['pk']
+        return reverse_lazy('details-profile', kwargs={'pk': profile_id})
 
     def get_form(self, form_class=None):
         form = super(ProfileEditView, self).get_form(form_class)
-        form.fields['password'].widget = forms.PasswordInput()
+        form.fields['password'].widget = forms.HiddenInput()
         return form
 
 

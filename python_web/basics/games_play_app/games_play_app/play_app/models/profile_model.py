@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+from django.urls import reverse
 
 
 class Profile(models.Model):
@@ -15,7 +16,7 @@ class Profile(models.Model):
     )
     age = models.IntegerField(
         blank=False,
-        validators=[MinValueValidator(MIN_AGE, AGE_ERR_MSG),]
+        validators=[MinValueValidator(MIN_AGE, AGE_ERR_MSG), ]
     )
     password = models.CharField(
         blank=False,
