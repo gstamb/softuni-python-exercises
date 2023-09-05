@@ -1,0 +1,14 @@
+<nav>
+    {% if page == 'list_todos' %}
+        <p><a href="{% url 'list todos' %}" class="btn disabled">List Todos</a></p>
+    {% else %}
+        <p><a href="{% url 'list todos' %}" class="btn btn-primary">List Todos</a></p>
+    {% endif %}
+
+    {% if page == 'create_todo' %}
+        <p><a href="{% url 'create todo' %}" class="btn disabled">Create Todos</a></p>
+    {% else %}
+        <p><a href="{% url 'create todo' %}" class="btn btn-primary">Create Todo</a></p>
+    {% endif %}
+
+</nav>

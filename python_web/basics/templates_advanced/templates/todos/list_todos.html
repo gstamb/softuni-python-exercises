@@ -1,0 +1,17 @@
+{% extends 'shared/base.html' %}
+{% load capitalize_filter %}
+{% load todos_count %}
+
+{% block head_title %} List Todos {% endblock %}
+
+{% block content %}
+<h1>Todos Count: {% todos_count %}</h1>
+
+<ul>
+    {% for todo in todos %}
+    <li>
+        {{ todo.text|capitalize_func }}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

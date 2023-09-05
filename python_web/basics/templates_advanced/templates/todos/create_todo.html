@@ -1,0 +1,16 @@
+{% extends 'shared/base2.html' %}
+{% block head_title %} Create Todo {% endblock %}
+{% load todos_count %}
+
+
+{% block sitebar_content %}
+        {% todos_preview %}
+{% endblock %}
+
+{% block main_content %}
+<form method="post" action="{% url 'create todo' %}">
+    {{ form }}
+    {% csrf_token %}
+    <button class="btn">Create Todo </button>
+</form>
+{% endblock %}
