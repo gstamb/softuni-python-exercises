@@ -5,13 +5,17 @@
 {% block head_title %} List Todos {% endblock %}
 
 {% block content %}
-<h1>Todos Count: {% todos_count %}</h1>
-
-<ul>
-    {% for todo in todos %}
-    <li>
-        {{ todo.text|capitalize_func }}
-    </li>
-    {% endfor %}
-</ul>
+{% todos_count as cnt %}
+    {% if cnt %}
+    <h1>Todos Count: {{ cnt }}</h1>
+    <ul>
+        {% for todo in todos %}
+        <li>
+            {{ todo.text|capitalize_func }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <h1> There are no todos </h1>
+    {% endif %}
 {% endblock %}

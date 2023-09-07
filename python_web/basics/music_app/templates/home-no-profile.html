@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %} Homepage {% endblock %}
+{% block site_content %}
+<!--Home Page-->
+<div class="container-inline">
+    <section id="welcomePage">
+        <div id="welcome-message">
+            <h1>Welcome to</h1>
+            <h1>My Music App!</h1>
+        </div>
+        <div class="music-img">
+            <img src="/static/images/musicIcons.webp" alt="music-icon">
+        </div>
+    </section>
+    <!-- Registration -->
+    <section id="registerPage">
+        {% include template_name %}
+    </section>
+</div>
+{% endblock %}
