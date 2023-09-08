@@ -2,6 +2,9 @@ from django.shortcuts import redirect, render
 from music_app.albums.forms import AlbumDeleteForm, AlbumForm
 from music_app.albums.models import Album
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+
+ 
 
 @login_required
 def add_album(request):
@@ -32,7 +35,7 @@ def details_album(request, pk):
     owned_by_user = album.users.filter(pk=request.user.pk).exists()
     context = {
         'album': album,
-        'has_permission' : owned_by_user
+        'has_permission': owned_by_user
     }
     return render(request, 'album-details.html', context)
 
@@ -70,7 +73,27 @@ def edit_album(request, pk):
 
 def show_albums(request):
     albums = Album.objects.all()
+    distinct_genres = Album.objects.order_by().values('genre').distinct()
+    paginator = Paginator(albums, 4)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
     context = {
-        'albums': albums
+        'albums': albums,
+        'page_obj': page_obj,
+        'genres': distinct_genres
+    }
+    return render(request, 'browse-albums.html', context)
+
+
+def filtered_genres(request, genre_filter):
+    albums = Album.objects.filter(genre=genre_filter)
+    distinct_genres = Album.objects.order_by().values('genre').distinct()
+    paginator = Paginator(albums, 4)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'albums': albums,
+        'page_obj': page_obj,
+        'genres': distinct_genres
     }
     return render(request, 'browse-albums.html', context)

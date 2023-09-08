@@ -1,5 +1,5 @@
 from django.urls import path
-from music_app.albums.views import add_album, delete_album, details_album, edit_album, show_albums
+from music_app.albums.views import add_album, delete_album, details_album, edit_album, show_albums,filtered_genres
 
 
 urlpatterns =[
@@ -7,5 +7,7 @@ urlpatterns =[
     path('details/<int:pk>/', details_album, name='details album'),
     path('delete/<int:pk>/', delete_album, name='delete album'),
     path('edit/<int:pk>/', edit_album, name='edit album'),
-    path('show/', show_albums , name='show albums')
+    path('show/', show_albums , name='show albums'),
+    path('show/<str:genre_filter>/', filtered_genres , name='filter genres')
+        
 ]
