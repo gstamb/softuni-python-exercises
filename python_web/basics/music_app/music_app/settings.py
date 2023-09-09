@@ -71,7 +71,11 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
             ],
+            'libraries': {
+                'lookup': 'music_app.albums.templatetags.filters',
+            },
         },
     },
 ]
@@ -140,5 +144,5 @@ STATICFILES_DIRS = (
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOGIN_URL='/'
-LOGIN_REDIRECT_URL='/'
+LOGIN_URL = '/'
+LOGIN_REDIRECT_URL = '/'
