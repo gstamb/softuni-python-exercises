@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}This is the main page {% endblock %}</title>
+    <!-- Static Load -->
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+
+<body>
+    <div id="box">
+
+        <!-- Navigation Bar -->
+        <header>
+            <nav>
+                <img src="/static/images/headphones.png" alt="headphones">
+                <a href="/">Home</a>
+                <ul></ul>
+                <ul>
+                    <!--Only for user with created profile-->
+                    {% if user.is_authenticated %}
+                    <li>Logged in as {{ user.email }}</li>
+                    <li> <a href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                    <li><a href="{% url 'register' %}">Register User</a></li>
+                    <li><a href="{% url 'register customer' %}">Register Customer</a></li>
+
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
+
+                </ul>
+            </nav>
+        </header>
+        <!-- End Navigation Bar -->
+
+        {% block site_content %}
+        {% endblock %}
+
+        <!-- Footer -->
+        <footer>
+            <div>
+                &copy;SoftUni Team 2022. All rights reserved.
+            </div>
+        </footer>
+        <!-- End Footer -->
+
+    </div>
+</body>
+
+</html>

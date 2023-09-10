@@ -1,0 +1,22 @@
+{% extends 'base.html' %} {% block title %}Sign Up{% endblock %} 
+{% load crispy_forms_tags %} 
+{% block site_content %}
+
+{% if request.path == '/register/customer/' %}
+<form method="post" action="{% url 'register customer' %}">
+{% else %}
+<form method="post" action="{% url 'register' %}">
+{% endif %}
+    <fieldset>
+        <legend>Profile</legend>
+        <div class="form-container-mini">
+            <!-- Form for Registration -->
+            {{ form }}
+            {% csrf_token %}
+        </div>
+        <p>Have an account? Sign In <a href="{% url 'login' %}">Here</a>!</p>
+        <button type="submit" class="register">Enter</button>
+
+    </fieldset>
+</form>
+{% endblock %}
