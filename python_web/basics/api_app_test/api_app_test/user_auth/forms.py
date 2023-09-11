@@ -1,9 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
-
 CustomUser = get_user_model()
-
 
 class RegisterForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
@@ -30,6 +28,29 @@ class RegisterForm(forms.ModelForm):
         # Save the provided password in hashed format
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password1"])
+        if commit:
+            user.save()
+        return user
+
+
+
+class CustomerRegisterForm(RegisterForm):
+    def save(self, commit=True):
+        # Save the provided password in hashed format
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
+        user.role = 'customer'
+        if commit:
+            user.save()
+        return user
+
+
+class UserRegisterForm(RegisterForm):
+    def save(self, commit=True):
+        # Save the provided password in hashed format
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
+        user.role = 'user'
         if commit:
             user.save()
         return user

@@ -9,7 +9,7 @@
             <!-- Form for Registration -->
             {{ form }}
         </div>
-        <p>Don't have an account? Sign Up <a href="{% url 'register' %}">Here</a>!</p>
+        <p>Don't have an account? Sign Up <a href="{% url 'register user' %}">Here</a>!</p>
         <button type="submit" class="register">Enter</button>
     </fieldset>
     {% csrf_token %}

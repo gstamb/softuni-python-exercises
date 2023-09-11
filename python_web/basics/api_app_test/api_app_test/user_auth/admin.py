@@ -2,15 +2,14 @@ from django import forms
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from api_app_test.user_auth.forms.base.create import RegisterForm
-from api_app_test.user_auth.forms.user.edit import UserChangeForm
+from api_app_test.user_auth.forms import RegisterForm
+
 
 from api_app_test.user_auth.models import CustomUser
 
 
 class UserAdmin(BaseUserAdmin):
     # The forms to add and change user instances
-    form = UserChangeForm
     add_form = RegisterForm
 
     # The fields to be used in displaying the User model.

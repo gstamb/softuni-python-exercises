@@ -21,9 +21,10 @@
                     <!--Only for user with created profile-->
                     {% if user.is_authenticated %}
                     <li>Logged in as {{ user.email }}</li>
+                    <li> <a href="{% url 'show profile' user.id %}">Profile</a></li>
                     <li> <a href="{% url 'logout' %}">Logout</a></li>
                     {% else %}
-                    <li><a href="{% url 'register' %}">Register User</a></li>
+                    <li><a href="{% url 'register user' %}">Register User</a></li>
                     <li><a href="{% url 'register customer' %}">Register Customer</a></li>
 
                     <li><a href="{% url 'login' %}">Login</a></li>

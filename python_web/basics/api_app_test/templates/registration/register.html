@@ -1,12 +1,8 @@
-{% extends 'base.html' %} {% block title %}Sign Up{% endblock %} 
-{% load crispy_forms_tags %} 
+{% extends 'base.html' %} {% block title %}Sign Up{% endblock %}
+{% load crispy_forms_tags %}
 {% block site_content %}
 
-{% if request.path == '/register/customer/' %}
-<form method="post" action="{% url 'register customer' %}">
-{% else %}
-<form method="post" action="{% url 'register' %}">
-{% endif %}
+<form method="post">
     <fieldset>
         <legend>Profile</legend>
         <div class="form-container-mini">

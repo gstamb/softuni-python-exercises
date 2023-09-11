@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% block title %} Profile Details {% endblock %}
+{% block site_content %}
+
+<!-- Details Page-->
+<section id="detailsPage">
+    <div class="wrapper">
+        <div class="profilePage">
+            {% if not profile.image_url %}
+            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                alt="Profile Image">
+            {% else %}
+            <img src="{{ profile.image_url }}" alt="Profile Image">
+            {% endif %}
+        </div>
+        <div class="profileText">
+            <!-- Profile Info -->
+            {% if profile %}
+            <ul>
+                {% for field_name in field_names %}
+                <h1>{{ field_name|format_title }}: {{ profile|get_attribute:field_name }}</h1>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <div class="actionBtn">
+            <!-- Button for Deleting and Editting the Profile -->
+            <a href="{% url 'edit profile' user.id %}" class="remove">Edit</a>
+            <a href="{% url 'delete profile' user.id %}" class="remove">Delete</a>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

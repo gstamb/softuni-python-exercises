@@ -122,7 +122,7 @@ textarea::-webkit-scrollbar-thumb {
   width: 100%;  
   padding: 20px;  
   float: left;
-  color:white
+  color:white;
 }
 
 .form-container-mini form {
@@ -143,26 +143,20 @@ textarea::-webkit-scrollbar-thumb {
   height: 30px;
 }
 
-.form-container {
-  width: 33.33%;  
-  padding: 20px;  
-  float: left;
-  color:white
-}
-
-.form-container form {
-  width: 100%;
-}
-
-.form-container input,
-.form-container button {
+.form-container-mini a {
   width: 100%;
   margin-bottom: 10px;
   height: 30px;
+  background-color: #1b2845;
+  background-image: linear-gradient(315deg, #45a29e 0%, #0d324d 74%) ;
+  color: white;
+  text-align: center;
+  text-decoration: none;  
+  display: inline-block;  
+  line-height: 30px;  
+  border: none;  
+  cursor: pointer;  
+  border-radius: 10px;
+  font-family: "Lato", serif;
+  font-size: 20px;
 }
-
-.form-container input,
-.form-container button {
-  width: 100%;
-  margin-bottom: 10px;
-  height: 30px;}
