@@ -1,0 +1,19 @@
+{% extends 'shared/base.html' %}
+{% block title %} Add trip {% endblock %}
+{% block site_content %}
+<form method='POST' action="" enctype="multipart/form-data">
+    <fieldset>
+        <div class="form-container-mini">
+            {% csrf_token %}
+            {{ trip_form.as_p }}
+            {{ formset.management_form }}
+            {% for form in formset %}
+                {{ form.as_table }}
+            {% endfor %}
+        </div>
+        <button type="submit" class="register">Enter</button>
+    
+    </fieldset>
+</form>
+{% endblock %}
+
