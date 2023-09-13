@@ -10,14 +10,13 @@
 
 <body>
     <div id="box">
-
         <!-- Navigation Bar -->
         <header>
             <nav>
                 <img src="/static/images/headphones.png" alt="headphones">
                 <a href="{% url 'add trip' %}">Add Trip</a>
-                <a href="/">My experiences</a>
-                <a href="/">Community posts</a>
+                <a href="{% url 'user trips' %}">My experiences</a>
+                <a href="{% url 'community trips' %}">Community posts</a>
                 <a href="/">Special places</a>
                 <ul></ul>
                 <ul>

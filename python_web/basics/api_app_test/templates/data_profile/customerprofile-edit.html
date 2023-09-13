@@ -11,7 +11,7 @@
                 <!-- Form for Editing Album -->
                 {{ form }}
                 {% csrf_token %}
-
+                <input name="image" type="file" class="form-control-file">
                 <!-- Button for Editing Album -->
                 <button class="edit-album" type="submit">Edit Profile</button>
                 <a href="{% url 'show profile' user.id %}" class="remove">Go Back </a>

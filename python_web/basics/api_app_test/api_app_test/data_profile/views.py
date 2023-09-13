@@ -30,6 +30,8 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         form.instance.email = self.request.user
+        image = self.request.FILES.get('image')
+        form.instance.image_url = image
         return super().form_valid(form)
 
 

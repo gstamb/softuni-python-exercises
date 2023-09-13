@@ -1,64 +1,48 @@
 {% extends 'shared/base.html' %}
 {% block title %} Home page {% endblock %}
 {% block site_content %}
-<!-- Catalog with Albums-->
 <section id="catalogPage">
-
-    <!--  If No albums in catalog -->
-    <p>No Albums in Catalog!</p>
-
-    <!-- If albums in catalog -->
-    <h1>All Albums</h1>
-    <!-- First Card-Box in catalog -->
-    <div class="card-box">
-        <img src="/static/images/BrandiCarlile.png" alt="Cover Image">
-        <div>
-            <div class="text-center">
-                <p class="name">Name: In These Silent Days</p>
-                <p class="artist">Artist: Brandi Carlile</p>
-                <p class="genre">Genre: Other</p>
-                <p class="price">Price: $12.80</p>
+    <div class="objects-container">
+        <h1>Your Trips</h1>
+        {% if not page_obj %}
+        <p>No Trips To Show!</p>
+        {% else %}
+            {% for post in page_obj %}
+            <div class="card-box">
+                <img src="{{ post.images.first.image_url }}" alt="Cover Image">
+                <div>
+                    <div class="text-center">
+                        <p class="title"> {{ post.title }}</p>
+                        <p class="country">Country: {{ post.country }}</p>
+                        <p class="review">Review: {{ post.review }}</p>
+                        <p class="rating">Rating: {{ post.rating }}</p>
+                    </div>
+                    <div class="btn-group">
+                        <a href="#">Details</a>
+                    </div>
+                </div>
             </div>
-            <div class="btn-group">
-                <a href="#">Details</a>
-            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="pagination-container">
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
         </div>
     </div>
-    <!-- End First Card-Box in catalog -->
-
-    <!-- Second Card-Box in catalog -->
-    <div class="card-box">
-        <img src="/static/images/pinkFloyd.jpg">
-        <div>
-            <div class="text-center">
-                <p class="name">Name: The Dark Side of the Moon</p>
-                <p class="artist">Artist: Pink Floyd</p>
-                <p class="genre">Genre: Rock Music</p>
-                <p class="price">Price: $28.75</p>
-            </div>
-            <div class="btn-group">
-                <a href="#">Details</a>
-            </div>
-        </div>
-    </div>
-    <!-- End Second Card-Box in catalog -->
-
-    <!-- Third Card-Box in catalog -->
-    <div class="card-box">
-        <img src="/static/images/Lorde.jpg">
-        <div>
-            <div class="text-center">
-                <p class="name">Name: Melodrama</p>
-                <p class="artist">Artist: Lorde</p>
-                <p class="genre">Genre: Pop Music</p>
-                <p class="price">Price: $7.33</p>
-            </div>
-            <div class="btn-group">
-                <a href="#">Details</a>
-            </div>
-        </div>
-    </div>
-    <!-- End Third Card-Box in catalog -->
-
 </section>
 {% endblock %}

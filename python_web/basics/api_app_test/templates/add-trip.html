@@ -5,15 +5,12 @@
     <fieldset>
         <div class="form-container-mini">
             {% csrf_token %}
-            {{ trip_form.as_p }}
-            {{ formset.management_form }}
-            {% for form in formset %}
-                {{ form.as_table }}
-            {% endfor %}
+            {{ form.as_p }}
+            <label>Upload image</label>
+            <input name="images" type="file" multiple class="form-control-file">
         </div>
         <button type="submit" class="register">Enter</button>
-    
+
     </fieldset>
 </form>
 {% endblock %}
-

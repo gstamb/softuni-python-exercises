@@ -192,4 +192,18 @@ input[type=text]:hover {
     text-shadow: 5px 2px black;
 }
 
+.objects-container {
+    margin-bottom: 20px; /* Add space below objects */
+}
+
+.pagination-container {
+    text-align: center;
+    clear:both
+}
+
+.pagination {
+    clear:both;
+    display: inline-block;
+    color: white;
+}
  
