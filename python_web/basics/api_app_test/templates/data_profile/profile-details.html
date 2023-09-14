@@ -2,13 +2,13 @@
 {% load custom_filters %}
 {% block title %} Profile Details {% endblock %}
 {% block site_content %}
- 
+
 <!-- Details Page-->
 <section id="detailsPage">
     <div class="wrapper">
         <div class="profilePage">
-            
-            <img src="{{ MEDIA_URL }}/{{ profile.image_url }}" alt="Profile Image">
+
+            <img src="{{ profile.get_profile_image }}" alt="Profile Image">
         </div>
         <div class="profileText">
             <!-- Profile Info -->

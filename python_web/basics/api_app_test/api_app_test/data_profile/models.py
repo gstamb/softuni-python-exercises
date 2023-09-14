@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
@@ -21,6 +22,11 @@ class UserProfile(models.Model):
     email = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     image_url = models.ImageField(
         upload_to=file_dir_path, default='static/None/default_entity_image.webp')
+    
+    def get_profile_image(self):
+        if self.image_url and hasattr(self.image_url, 'url'):
+            return self.image_url.url
+        return settings.MEDIA_URL + 'static/None/default_entity_image.webp'
 
 
 class CustomerProfile(models.Model):
@@ -33,3 +39,8 @@ class CustomerProfile(models.Model):
     email = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     image_url = models.ImageField(
         upload_to=file_dir_path,  default='static/None/default_entity_image.webp')
+
+    def get_profile_image(self):
+        if self.image_url and hasattr(self.image_url, 'url'):
+            return self.image_url.url
+        return settings.MEDIA_URL + 'static/None/default_entity_image.webp'

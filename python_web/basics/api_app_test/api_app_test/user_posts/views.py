@@ -4,6 +4,9 @@ from api_app_test.user_posts.forms import TripForm
 from api_app_test.user_posts.models import Trip, TripImage
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
+from django.views.generic.detail import DetailView
+
+from api_app_test.utils.images_resizing import resize_image
 
 
 class CreateTripView(CreateView):
@@ -11,7 +14,7 @@ class CreateTripView(CreateView):
     # A default image object holding a default image will be created if no image is provided
     model = Trip
     fields = ["title", "country", "city", "review", "rating"]
-    template_name = 'add-trip.html'
+    template_name = 'trips/add-trip.html'
     success_url = reverse_lazy('user trips')
 
     def form_valid(self, form):
@@ -20,8 +23,10 @@ class CreateTripView(CreateView):
 
         images = self.request.FILES.getlist('images')
         if images:
-            for image in images:
-                TripImage.objects.create(trip=self.object, images=image)
+            for photo in images:
+                TripImage.objects.create(
+                    trip=self.object, photo=photo, thumbnail=resize_image(photo))
+
         else:
             TripImage.objects.create(trip=self.object)
         return response
@@ -31,7 +36,7 @@ class ShowUserTrips(ListView):
     # creates filtered pagination for a model whereas user matches the owner id
     model = Trip
     paginate_by = 4
-    template_name = "homepage.html"
+    template_name = "trips/homepage.html"
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -42,14 +47,17 @@ class ShowAllUserTrips(ListView):
     # creates filtered pagination for a model whereas user is not the owner id
     model = Trip
     paginate_by = 4
-    template_name = "homepage.html"
+    template_name = "trips/homepage.html"
 
     def get_queryset(self):
         qs = super().get_queryset()
         return qs.exclude(author=self.request.user)
 
 
-
+class ShowTripDetails(DetailView):
+    model = Trip
+    template_name = "trips/trip-details.html"
+    context_object_name = "trip"
 
 # def add_trip(request):
 #     trip_form = TripForm()

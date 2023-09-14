@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
+{% load static %}
 <head>
     <meta charset="UTF-8" />
-    <title>{% block title %}This is the main page {% endblock %}</title>
-    <!-- Static Load -->
-    <link rel="stylesheet" href="/static/css/style.css" />
+    <title>{% block title %}This is the main page{% endblock %}</title>
+    <!-- Include jQuery from Google CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 </head>
 
 <body>

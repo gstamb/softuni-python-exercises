@@ -207,3 +207,27 @@ input[type=text]:hover {
     color: white;
 }
  
+/* Style for the trip wrapper */
+.trip-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 80%;
+}
+
+/* Style for the trip image container (1) */
+.trip-image {
+  flex: 3;
+  max-width: 75%;
+  border: #0d324d;
+}
+
+/* Style for the trip details (2) */
+.trip-details {
+  flex: 1;
+  max-width: 25%;
+  border: #0d324d;
+  padding-left: 200px;
+
+}
+
+ 

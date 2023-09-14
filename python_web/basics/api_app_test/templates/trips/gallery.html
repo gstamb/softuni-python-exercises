@@ -1,0 +1,36 @@
+{% load static %}
+
+<head lang="en">
+    <link rel="stylesheet" href="{% static 'css/images.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!--Gallery-->
+        <strong> Gallery </strong>
+        <aside id="gallery" class="row text-center scrollto clearfix" data-featherlight-gallery data-featherlight-filter="a">
+            {% for photo in trip.photo.all %}
+            <div class="col-3 photo-item">
+                <a href="{{ photo.image_url }}"data-featherlight="image">
+                    <img src="{{ photo.thumbnail.url }}" alt="Landing Page"/>
+                </a>
+            </div>
+            {% endfor %}
+        </aside>
+        
+    </div>
+
+    <script src="{% static 'js/jquery.1.8.3.min.js' %}"></script>
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <script src="{% static 'js/featherlight.min.js' %}"></script>
+    <script src="{% static 'js/featherlight.gallery.min.js' %}"></script>
+    <script src="{% static 'js/jquery.enllax.min.js' %}"></script>
+    <script src="{% static 'js/jquery.scrollUp.min.js' %}"></script>
+    <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+    <script src="{% static 'js/jquery.stickyNavbar.min.js' %}"></script>
+    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/images-loaded.min.js' %}"></script>
+    <script src="{% static 'js/lightbox.min.js' %}"></script>
+    <script src="{% static 'js/site.js' %}"></script>
+</body>

@@ -3,27 +3,26 @@
 {% block site_content %}
 <section id="catalogPage">
     <div class="objects-container">
-        <h1>Your Trips</h1>
         {% if not page_obj %}
-        <p>No Trips To Show!</p>
+        <h1>No Trips To Show!</h1>
         {% else %}
+            <h1>Your Trips</h1>
             {% for post in page_obj %}
             <div class="card-box">
-                <img src="{{ post.images.first.image_url }}" alt="Cover Image">
+                <img src="{{ post.photo.first.thumbnail.url }}" alt="Cover Image">
                 <div>
                     <div class="text-center">
                         <p class="title"> {{ post.title }}</p>
                         <p class="country">Country: {{ post.country }}</p>
-                        <p class="review">Review: {{ post.review }}</p>
+                        <p class="user">Review: {{ user.first_name }}</p>
                         <p class="rating">Rating: {{ post.rating }}</p>
                     </div>
                     <div class="btn-group">
-                        <a href="#">Details</a>
+                        <a href="{% url 'details trip' post.slug %}">Details</a>
                     </div>
                 </div>
             </div>
             {% endfor %}
-        {% endif %}
     </div>
     <div class="pagination-container">
         <div class="pagination">
@@ -44,5 +43,6 @@
             </span>
         </div>
     </div>
+    {% endif %}
 </section>
 {% endblock %}

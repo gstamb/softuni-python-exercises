@@ -11,7 +11,7 @@ from api_app_test.user_auth.forms import UserRegisterForm, CustomerRegisterForm
 
 
 class HomePageView(TemplateView):
-    template_name = "homepage.html"
+    template_name = "trips/homepage.html"
 
 
 class UserLogin(LoginView):
