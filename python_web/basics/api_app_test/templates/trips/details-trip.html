@@ -1,0 +1,38 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block site_content %}
+
+<div class="trip-wrapper">
+    <div class="trip-image">
+        {% include 'trips/gallery.html' with trip=trip %}
+    </div>
+    <div class="trip-details">
+        <ul>
+            <section id="detailsPage">
+                <div class="wrapper-image">
+                    <div class="albumInfo">
+                        <div class="albumText">
+                            <!-- Album Info -->
+                            <h1>Trip Details</h1>
+                            <h3> {{ trip.title }} </h3>
+                                <h3>User: {{ trip.author }}</h3>
+                                <h4>country: {{ trip.country }}</h4>
+                                {% if trip.rating %}
+                                <h4>Rating: {{ trip.rating }}</h4>
+                                {% endif %}
+                                <p>{{ trip.review }}</p>
+                        </div>
+                        {% if trip.author.email == user.email %}
+                        <div class="actionBtn-image">
+                            <!-- Trip Buttons -->
+                            <a href="{% url 'update trip' trip.slug %}" class="edit">Edit</a>
+                            <a href="{% url 'delete trip' trip.slug %}" class="remove">Delete</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+        </ul>
+    </div>
+</div>
+{% endblock %}

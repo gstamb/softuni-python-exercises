@@ -1,0 +1,19 @@
+{% extends 'shared/base.html' %}
+{% block title %} Delete Trip {% endblock %}
+{% block site_content %}
+<!-- Delete Trip Page-->
+<section id="detailsPage">
+    <div class="wrapper">
+        <div class="profileText">
+            <!-- Delete Profile Form -->
+            <h1>Are you sure you want to delete your trip?</h1>
+            <form method="post" action="{% url 'delete trip' trip.slug %}">
+                <!-- Confirm Button -->
+                {% csrf_token %}
+                <button class="delete-profile" type="submit">Delete</button>
+            </form>
+            <!-- End Delete Profile Form -->
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
@@ -6,6 +7,8 @@ from api_app_test.data_profile.forms import CustomerUpdateForm, UserUpdateForm
 from api_app_test.data_profile.models import CustomerProfile, UserProfile
 from api_app_test.user_auth.models import CustomUser
 from django.contrib.auth.mixins import LoginRequiredMixin
+from api_app_test.utils.images_resizing import resize_image
+
 
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     template_name_suffix = "-edit"
@@ -31,7 +34,8 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         form.instance.email = self.request.user
         image = self.request.FILES.get('image')
-        form.instance.image_url = image
+        if image:
+            form.instance.image_url = resize_image(image)
         return super().form_valid(form)
 
 
@@ -65,3 +69,15 @@ class ProfileDeleteView(LoginRequiredMixin, DeleteView):
     model = CustomUser
     success_url = reverse_lazy('homepage')
     template_name = "data_profile/profile-delete.html"
+
+    def form_valid(self, form):
+        success_url = self.get_success_url()
+        if self.object.role == 'customer':
+            CustomerProfile.objects.filter(
+                email=self.object).first().image_url.delete(save=True)
+        else:
+            UserProfile.objects.filter(
+                email=self.object).first().image_url.delete(save=True)
+
+        self.object.delete()
+        return HttpResponseRedirect(success_url)

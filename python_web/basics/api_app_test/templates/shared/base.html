@@ -16,8 +16,10 @@
         <header>
             <nav>
                 <img src="/static/images/headphones.png" alt="headphones">
+                {% if user.is_authenticated %}
                 <a href="{% url 'add trip' %}">Add Trip</a>
                 <a href="{% url 'user trips' %}">My experiences</a>
+                {% endif %}
                 <a href="{% url 'community trips' %}">Community posts</a>
                 <a href="/">Special places</a>
                 <ul></ul>

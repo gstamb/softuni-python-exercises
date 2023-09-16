@@ -1,0 +1,32 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block site_content %}
+<!--Edit Page-->
+<section class="editPage">
+    <form method="post" action="{% url 'update trip' trip.slug %}" enctype="multipart/form-data">
+        <fieldset>
+            <legend>Edit Album</legend>
+            <!-- Form for Editing Trip -->
+            <ul>
+                {{ form }}
+                {% csrf_token %}
+            </ul>
+            <!-- Button for Editing Trip -->
+            <legend>Update Images</legend>
+            <br>
+            <ul>
+                <div class="overflow-container">
+                    {% for image in trip.photo.all %}
+                    <div class="box">
+                        <a href="{{ image.image_url }}" data-featherlight="image">
+                            <img src="{{ image.thumbnail.url }}" alt="Landing Page"/>
+                            <input name="image_{{ image.id }}" type="file" class="form-control-file"></a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </ul>
+            <button class="edit-album" type="submit">Edit Album</button>
+        </fieldset>
+    </form>
+</section>
+{% endblock %}
