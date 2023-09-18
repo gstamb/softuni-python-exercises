@@ -1,5 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
+from api_app_test.user_posts.mixins import LoggedInPermissionsMixin
 from api_app_test.user_posts.models import Trip, TripImage
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -8,13 +9,14 @@ from api_app_test.utils.images_resizing import resize_image
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class CreateTripView(LoginRequiredMixin, CreateView):
+class CreateTripView(LoggedInPermissionsMixin, CreateView):
     # Creates a trip and allows for multiple images to be uploaded.
     # A default image object holding a default image will be created if no image is provided
     model = Trip
     fields = ["title", "country", "city", "review", "rating"]
     template_name = 'trips/add-trip.html'
     success_url = reverse_lazy('user trips')
+    permission_required = 'user_posts.add_trip'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -36,6 +38,7 @@ class ShowUserTrips(LoginRequiredMixin, ListView):
     model = Trip
     paginate_by = 4
     template_name = "trips/homepage.html"
+    permission_required = 'user_posts.view_trip'
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -53,7 +56,7 @@ class ShowAllUserTrips(LoginRequiredMixin, ListView):
         return qs.exclude(author=self.request.user)
 
 
-class ShowTripDetails(LoginRequiredMixin,DetailView):
+class ShowTripDetails(LoginRequiredMixin, DetailView):
     model = Trip
     template_name = "trips/details-trip.html"
     context_object_name = "trip"
@@ -65,6 +68,7 @@ class UpdateTripView(LoginRequiredMixin, UpdateView):
     fields = ["title", "country", "city", "review", "rating"]
     template_name = 'trips/update-trip.html'
     success_url = reverse_lazy('user trips')
+    permission_required = 'user_posts.change_trip'
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -80,43 +84,19 @@ class UpdateTripView(LoginRequiredMixin, UpdateView):
         return response
 
 
-class DeleteTripView(LoginRequiredMixin, DeleteView):
+class DeleteTripView(LoggedInPermissionsMixin, DeleteView):
     # Deletes the Trip and related images and thumbnails
     model = Trip
     template_name = "trips/delete-trip.html"
     success_url = reverse_lazy('user trips')
+    permission_required = 'user_posts.delete_trip'
 
     def form_valid(self, form):
         success_url = self.get_success_url()
-        for image in self.object.photo.all():
+        trip = self.object
+        for image in trip.photo.all():
             image.photo.delete(save=True)
             image.thumbnail.delete(save=True)
 
-        self.object.id.delete()
+        trip.delete()
         return HttpResponseRedirect(success_url)
-
-# def add_trip(request):
-#     trip_form = TripForm()
-#     if request.method == "POST":
-#         trip_form = TripForm(request.POST, request.FILES)
-#         images = request.FILES.getlist('images')
-
-#         if trip_form.is_valid():
-#             trip = trip_form.save(commit=False)
-#             trip.author = request.user
-#             trip.save()
-
-#             if images:
-#                 for image in images:
-#                     TripImage.objects.create(
-#                         trip=trip,
-#                         images=image,
-#                     )
-#             else:
-#                 TripImage.objects.create(trip=trip)
-
-#             return redirect('homepage')
-#     else:
-#         trip_form = TripForm()
-
-#     return render(request, 'add-trip.html', {'trip_form': trip_form})

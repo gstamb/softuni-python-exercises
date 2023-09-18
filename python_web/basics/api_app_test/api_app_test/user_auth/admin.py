@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib import admin
-from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from api_app_test.user_auth.forms import RegisterForm
+from django.contrib.auth.admin import GroupAdmin
+from django.contrib.auth.models import Group
 
 
 from api_app_test.user_auth.models import CustomUser
@@ -43,3 +44,12 @@ admin.site.register(CustomUser, UserAdmin)
 # ... and, since we're not using Django's built-in permissions,
 # unregister the Group model from admin.
 admin.site.unregister(Group)
+
+class UserInLine(admin.TabularInline):
+    model = Group.user_set.through
+    extra = 0
+
+
+@admin.register(Group)
+class GenericGroup(GroupAdmin):
+    inlines = [UserInLine]

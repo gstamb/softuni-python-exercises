@@ -7,7 +7,8 @@ from django_countries.fields import CountryField
 from api_app_test.user_auth.models import CustomUser
 from django.conf import settings
 from django.utils.text import slugify
-
+from django.db import migrations
+from django.contrib.auth.models import Group, Permission
 
 def trip_directory_path(instance, filename, is_thumbnail=False):
     base_path = f'{instance.trip.author.role}/{instance.trip.author.id}'
@@ -15,6 +16,9 @@ def trip_directory_path(instance, filename, is_thumbnail=False):
         return f'{base_path}/thumbnails/{instance.trip_id}/{filename}'
     else:
         return f'{base_path}/trip_images/{instance.trip_id}/{filename}'
+
+def thumbnail_path(instance, filename):
+    return trip_directory_path(instance, filename, is_thumbnail=True)
 
 
 class Trip(models.Model):
@@ -66,7 +70,7 @@ class TripImage(models.Model):
         Trip, on_delete=models.CASCADE, related_name='photo')
     photo = models.ImageField(upload_to=trip_directory_path)
     thumbnail = models.ImageField(
-        upload_to=lambda instance, filename: trip_directory_path(instance, filename, is_thumbnail=True))
+        upload_to=thumbnail_path)
     description = models.TextField(blank=True, max_length=300)
     # utility
     uniqueId = models.CharField(null=True, blank=True, max_length=100)
@@ -96,3 +100,8 @@ class TripImage(models.Model):
         if self.photo and hasattr(self.photo, 'url'):
             return self.photo.url
         return settings.MEDIA_URL + 'static/None/default_trip_image.webp'
+ 
+    def thumbnail_url(self):
+        if self.thumbnail and hasattr(self.thumbnail, 'url'):
+            return self.thumbnail.url
+        return settings.MEDIA_URL + 'static/None/default_trip_thumbnail.webp'

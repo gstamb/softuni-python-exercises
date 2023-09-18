@@ -4,6 +4,13 @@
 
 <form method="post" action="{% url 'login' %}">
     <fieldset>
+        {% if messages %}
+        <ul class="messages" style="color: white;">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
         <legend>Profile</legend>
         <div class="form-container-mini">
             <!-- Form for Registration -->

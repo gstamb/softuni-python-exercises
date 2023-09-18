@@ -19,7 +19,7 @@
                     {% for image in trip.photo.all %}
                     <div class="box">
                         <a href="{{ image.image_url }}" data-featherlight="image">
-                            <img src="{{ image.thumbnail.url }}" alt="Landing Page"/>
+                            <img src="{{ image.thumbnail_url }}" alt="Landing Page"/>
                             <input name="image_{{ image.id }}" type="file" class="form-control-file"></a>
                     </div>
                     {% endfor %}

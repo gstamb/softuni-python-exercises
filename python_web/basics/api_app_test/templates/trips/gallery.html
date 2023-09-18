@@ -13,7 +13,7 @@
             {% for photo in trip.photo.all %}
             <div class="col-3 photo-item">
                 <a href="{{ photo.image_url }}"data-featherlight="image">
-                    <img src="{{ photo.thumbnail.url }}" alt="Landing Page"/>
+                    <img src="{{ photo.thumbnail_url }}" alt="Landing Page"/>
                 </a>
             </div>
             {% endfor %}

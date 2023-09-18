@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 from api_app_test.data_profile.forms import CustomerUpdateForm, UserUpdateForm
@@ -11,7 +10,7 @@ from api_app_test.utils.images_resizing import resize_image
 
 
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
-    template_name_suffix = "-edit"
+    template_name = "data_profile/profile-edit.html"
 
     def get_success_url(self):
         userid = self.kwargs['pk']

@@ -3,16 +3,22 @@
 {% block site_content %}
 <!--Edit Page-->
 <section class="editPage">
-    <form method="post" enctype="multipart/form-data"  action="{% url 'edit profile' user.id %}">
+    <form method="post" enctype="multipart/form-data" action="{% url 'edit profile' user.id %}">
         <fieldset>
-            <legend>Edit Profile</legend>
+            {% if messages %}
+            <ul class="messages">
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
             <div class="form-container-mini">
 
-                <!-- Form for Editing Album -->
+                <!-- Form for Editing Profile -->
                 {{ form }}
                 {% csrf_token %}
                 <input name="image" type="file" class="form-control-file">
-                <!-- Button for Editing Album -->
+                <!-- Button for Editing Profile -->
                 <button class="edit-album" type="submit">Edit Profile</button>
                 <a href="{% url 'show profile' user.id %}" class="remove">Go Back </a>
             </div>

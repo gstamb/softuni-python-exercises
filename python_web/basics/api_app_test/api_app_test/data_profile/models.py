@@ -19,9 +19,10 @@ class UserProfile(models.Model):
     city = models.CharField(max_length=50, blank=True)
     address = models.CharField(max_length=50, blank=True)
     phone_number = PhoneNumberField(blank=True)
-    email = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='user')
+    email = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, related_name='user')
     image_url = models.ImageField(
-        upload_to=file_dir_path, default='static/None/default_entity_image.webp')
+        upload_to=file_dir_path, blank=True)
 
     def get_profile_image(self):
         if self.image_url and hasattr(self.image_url, 'url'):
@@ -36,7 +37,8 @@ class CustomerProfile(models.Model):
     city = models.CharField(max_length=50, blank=True)
     address = models.CharField(max_length=50, blank=True)
     phone_number = PhoneNumberField(blank=True)
-    email = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='customer')
+    email = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, related_name='customer')
     image_url = models.ImageField(
         upload_to=file_dir_path, default='static/None/default_entity_image.webp')
 
