@@ -1,5 +1,5 @@
 from api_app_test.data_profile.models import CustomerProfile, UserProfile
-from django.db.models.signals import post_save, pre_save
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 from api_app_test.user_auth.models import CustomUser
 from django.contrib.auth.models import Group

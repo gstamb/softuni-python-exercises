@@ -4,7 +4,7 @@ import io
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 
-def resize_image(img='media/static/None/default_trip_image.webp'):
+def resize_image(img):
     image = Image.open(img)
     image = image.convert('RGB')
     image = image.resize((400, 400), Image.LANCZOS)

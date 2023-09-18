@@ -1,7 +1,6 @@
-from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic import DetailView, UpdateView, DeleteView
 from api_app_test.data_profile.forms import CustomerUpdateForm, UserUpdateForm
 from api_app_test.data_profile.models import CustomerProfile, UserProfile
 from api_app_test.user_auth.models import CustomUser

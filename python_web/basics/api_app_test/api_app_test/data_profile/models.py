@@ -40,7 +40,7 @@ class CustomerProfile(models.Model):
     email = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE, related_name='customer')
     image_url = models.ImageField(
-        upload_to=file_dir_path, default='static/None/default_entity_image.webp')
+        upload_to=file_dir_path, blank=True)
 
     def get_profile_image(self):
         if self.image_url and hasattr(self.image_url, 'url'):
